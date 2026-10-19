@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#f7f8f6" />
+<title>NUKO Cash+ | Proyección de ahorro</title>
+<style>
+  :root{--bg:#f7f8f6;--paper:#fff;--ink:#17211d;--muted:#69756e;--line:#e3e8e3;--green:#176b50;--green2:#e7f2ec;--green3:#b8d9c7;--gold:#c8a96b;--shadow:0 16px 40px rgba(27,48,37,.06);--radius:22px}
+  *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}
+  button,input,select{font:inherit} button{cursor:pointer}
+  .shell{width:min(1160px,calc(100% - 40px));margin:auto}
+  header{padding:28px 0 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}
+  .wordmark{font-size:17px;font-weight:750;letter-spacing:-.04em}.wordmark span{color:var(--green)} .header-note{font-size:12px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+  .hero{padding:64px 0 42px;display:grid;grid-template-columns:1.2fr .8fr;gap:44px;align-items:end}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--green);font-size:12px;text-transform:uppercase;letter-spacing:.13em;font-weight:750;margin-bottom:18px}.eyebrow:before{content:"";height:1px;width:25px;background:var(--gold)}
+  h1{font-size:clamp(40px,6vw,68px);line-height:1.02;letter-spacing:-.065em;margin:0 0 22px;max-width:720px;font-weight:650}
+  h1 em{font-style:normal;color:var(--green)} .hero-copy{color:var(--muted);font-size:17px;max-width:590px;margin:0}
+  .hero-aside{border-left:1px solid var(--line);padding:8px 0 8px 26px;color:var(--muted);font-size:14px}.hero-aside strong{display:block;color:var(--ink);font-size:16px;margin-bottom:8px;font-weight:650}
+  .main-grid{display:grid;grid-template-columns:minmax(0, .92fr) minmax(0,1.08fr);gap:22px;align-items:start;padding-bottom:44px}
+  .panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)} .panel-head{padding:26px 28px 0}.panel-head h2{font-size:19px;letter-spacing:-.035em;margin:0 0 6px}.panel-head p{font-size:13px;color:var(--muted);margin:0}
+  .form-body{padding:24px 28px 28px}.field{margin-bottom:23px}.field-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px}.field label,.field-label{font-size:13px;font-weight:650}.hint{font-size:11px;color:var(--muted)}
+  .input-wrap{position:relative}.prefix{position:absolute;left:15px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--muted)}input[type=number],select{width:100%;border:1px solid #dbe2dc;border-radius:12px;background:#fff;color:var(--ink);padding:14px 14px;outline:none;transition:border .15s,box-shadow .15s}input[type=number]{padding-left:39px;font-variant-numeric:tabular-nums}input:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(23,107,80,.1)}
+  .select-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.range-row{display:flex;align-items:center;gap:14px}.range-row input{flex:1;accent-color:var(--green)}.range-value{min-width:55px;text-align:right;font-weight:700;font-size:14px}
+  .levels{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.level{border:1px solid var(--line);border-radius:13px;padding:13px 11px;background:white;text-align:left;transition:.18s;min-width:0}.level:hover{border-color:var(--green3)}.level[aria-pressed=true]{background:var(--green2);border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}.level-name{font-size:13px;font-weight:750;display:block}.level-rate{font-size:20px;letter-spacing:-.04em;display:block;margin:6px 0 1px}.level-sub{font-size:10px;color:var(--muted);display:block}
+  .note{display:flex;gap:10px;background:#f7f8f6;border:1px solid var(--line);padding:13px 14px;border-radius:12px;font-size:12px;color:var(--muted);margin-top:8px}.note-mark{color:var(--green);font-weight:800}
+  .results{overflow:hidden}.results-top{padding:26px 28px 22px;background:#f0f5f1;border-bottom:1px solid var(--line)}.results-top .mini{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--green);font-weight:750}.results-top h2{font-size:22px;letter-spacing:-.04em;margin:8px 0 4px}.results-top p{font-size:13px;color:var(--muted);margin:0}
+  .hero-metric{padding:26px 28px 23px;border-bottom:1px solid var(--line)}.metric-label{font-size:13px;color:var(--muted)}.big-number{font-size:clamp(38px,5vw,54px);line-height:1.1;letter-spacing:-.065em;font-weight:680;margin:7px 0 8px;font-variant-numeric:tabular-nums}.metric-foot{font-size:12px;color:var(--muted)}.progress{height:6px;border-radius:9px;background:#e7ece8;overflow:hidden;margin:17px 0 7px}.progress-fill{height:100%;width:0;background:var(--green);border-radius:9px;transition:width .25s}.progress-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);gap:10px}
+  .metric-grid{display:grid;grid-template-columns:1fr 1fr}.metric{padding:21px 24px;border-bottom:1px solid var(--line)}.metric:nth-child(odd){border-right:1px solid var(--line)}.metric .label{font-size:12px;color:var(--muted);margin-bottom:8px}.metric .value{font-size:23px;font-weight:680;letter-spacing:-.045em;font-variant-numeric:tabular-nums}.metric .sub{font-size:11px;color:var(--muted);margin-top:5px}
+  .breakdown{padding:23px 28px 26px}.breakdown h3{font-size:14px;margin:0 0 16px}.line-item{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid #edf0ed;font-size:13px}.line-item:last-of-type{border:0}.line-item span:first-child{color:var(--muted)}.line-item strong{font-weight:650;text-align:right;font-variant-numeric:tabular-nums}
+  .actions{display:flex;gap:10px;margin-top:20px}.btn{border-radius:12px;border:1px solid var(--green);padding:13px 16px;font-size:13px;font-weight:700;transition:.18s}.btn-primary{background:var(--green);color:white;flex:1}.btn-primary:hover{background:#10563f}.btn-secondary{background:white;color:var(--green)}.btn-secondary:hover{background:var(--green2)}
+  .compare{padding:20px 0 60px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:18px}.section-head h2{font-size:25px;letter-spacing:-.05em;margin:0 0 5px}.section-head p{font-size:13px;color:var(--muted);margin:0}.compare-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.compare-card{border:1px solid var(--line);border-radius:18px;background:#fff;padding:22px}.compare-card.active{border-color:var(--green);box-shadow:0 0 0 1px var(--green)}.compare-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.compare-card h3{font-size:15px;margin:0}.pill{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--green);background:var(--green2);border-radius:30px;padding:5px 8px}.compare-amount{font-size:28px;letter-spacing:-.05em;font-weight:700;margin:16px 0 2px}.compare-caption{font-size:11px;color:var(--muted)}.compare-details{margin:17px 0 0;padding-top:14px;border-top:1px solid var(--line);display:grid;gap:9px}.compare-details div{display:flex;justify-content:space-between;gap:10px;font-size:12px}.compare-details span{color:var(--muted)}.compare-details strong{font-weight:650;text-align:right}
+  .disclaimer{border-top:1px solid var(--line);padding:23px 0 34px;color:var(--muted);font-size:11px;display:flex;gap:12px;align-items:flex-start}.disclaimer strong{color:var(--ink)}footer{padding:0 0 28px;display:flex;justify-content:space-between;gap:20px;color:#879189;font-size:11px}
+  .toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,15px);background:#17211d;color:white;padding:12px 17px;border-radius:12px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;box-shadow:var(--shadow);max-width:calc(100% - 30px)}.toast.show{opacity:1;transform:translate(-50%,0)}
+  @media(max-width:850px){.hero{grid-template-columns:1fr;gap:24px;padding-top:45px}.hero-aside{border-left:0;border-top:1px solid var(--line);padding:18px 0 0}.main-grid{grid-template-columns:1fr}.compare-grid{grid-template-columns:1fr}.compare-card{padding:19px}.compare-amount{margin-top:12px}}
+  @media(max-width:520px){.shell{width:min(100% - 24px,1160px)}header{padding:20px 0}.header-note{font-size:9px}.hero{padding:38px 0 28px}h1{font-size:43px}.hero-copy{font-size:15px}.panel-head{padding:22px 19px 0}.form-body{padding:22px 19px}.results-top{padding:22px 20px}.hero-metric{padding:22px 20px}.metric{padding:18px 16px}.metric .value{font-size:20px}.breakdown{padding:20px}.levels{gap:6px}.level{padding:11px 8px}.level-name{font-size:12px}.level-rate{font-size:18px}.level-sub{font-size:9px}.actions{flex-direction:column}.section-head{display:block}.section-head p{margin-top:6px}footer{display:block}footer span{display:block;margin-top:5px}}
+  @media print{body{background:white}.shell{width:100%}header{padding-top:0}.hero{padding-top:24px}.main-grid{grid-template-columns:1fr 1fr}.panel{box-shadow:none;break-inside:avoid}.actions,.compare,.header-note{display:none!important}.disclaimer{padding-bottom:0}footer{padding-top:12px}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header>
+    <div class="wordmark">NUKO <span>Cash+</span></div>
+    <div class="header-note">Proyección de ahorro · USD</div>
+  </header>
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Ahorro que acompaña tu operación</div>
+      <h1>Tu operación puede construir <em>más.</em></h1>
+      <p class="hero-copy">Explora cómo las retenciones de tus facturas elegibles podrían acumularse con NUKO Cash+ y conoce el beneficio comercial estimado según el nivel que elijas.</p>
+    </div>
+    <aside class="hero-aside"><strong>Una proyección hecha a tu medida.</strong>Ajusta el volumen de facturación, el horizonte y el nivel de retención. Los resultados cambian en tiempo real para ayudarte a evaluar el programa.</aside>
+  </section>
+  <main class="main-grid">
+    <section class="panel">
+      <div class="panel-head"><h2>Configura tu escenario</h2><p>Modifica los valores para reflejar tu operación.</p></div>
+      <div class="form-body">
+        <div class="field">
+          <div class="field-top"><label for="monthlyVolume">Facturación elegible mensual</label><span class="hint">USD / mes</span></div>
+          <div class="input-wrap"><span class="prefix">$</span><input id="monthlyVolume" type="number" min="0" step="500" value="20000" inputmode="decimal" /></div>
+        </div>
+        <div class="field">
+          <div class="field-top"><label for="avgInvoice">Valor promedio por factura</label><span class="hint">USD</span></div>
+          <div class="input-wrap"><span class="prefix">$</span><input id="avgInvoice" type="number" min="1" step="100" value="4000" inputmode="decimal" /></div>
+        </div>
+        <div class="field">
+          <div class="field-top"><label for="months">Horizonte de proyección</label><span class="hint">Tiempo estimado</span></div>
+          <div class="range-row"><input id="months" type="range" min="3" max="24" step="3" value="12" /><output id="monthsValue" class="range-value">12 meses</output></div>
+        </div>
+        <div class="field">
+          <div class="field-top"><span class="field-label">Nivel de NUKO Cash+</span><span class="hint">Elige uno</span></div>
+          <div class="levels" role="group" aria-label="Nivel del programa">
+            <button class="level" type="button" data-level="basic" aria-pressed="true"><span class="level-name">Básico</span><span class="level-rate">5%</span><span class="level-sub">Retención</span></button>
+            <button class="level" type="button" data-level="intermediate" aria-pressed="false"><span class="level-name">Intermedio</span><span class="level-rate">8%</span><span class="level-sub">Retención</span></button>
+            <button class="level" type="button" data-level="advanced" aria-pressed="false"><span class="level-name">Avanzado</span><span class="level-rate">10%</span><span class="level-sub">Retención</span></button>
+          </div>
+        </div>
+        <div class="field">
+          <div class="field-top"><label for="paymentMethod">Método de pago</label><span class="hint">Referencia operativa</span></div>
+          <select id="paymentMethod"><option value="ACH">ACH</option><option value="Wire">Wire</option></select>
+          <div class="note"><span class="note-mark">i</span><span>El método de pago no modifica por sí solo el porcentaje de retención ni la tasa de beneficio en esta proyección.</span></div>
+        </div>
+      </div>
+    </section>
+    <section class="panel results" aria-live="polite">
+      <div class="results-top"><div class="mini">Tu escenario · <span id="resultLevel">Nivel Básico</span></div><h2>Así podría verse tu ahorro</h2><p id="resultSubtitle">Proyección ilustrativa a 12 meses.</p></div>
+      <div class="hero-metric">
+        <div class="metric-label">Saldo retenido estimado</div>
+        <div class="big-number" id="retainedBalance">$12,000</div>
+        <div class="metric-foot" id="retainedFoot">Acumulado estimado durante el periodo seleccionado.</div>
+        <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-meta"><span id="progressText">Meta de referencia: $3,000</span><strong id="progressPct">100% de la meta</strong></div>
+      </div>
+      <div class="metric-grid">
+        <div class="metric"><div class="label">Beneficio trimestral estimado</div><div class="value" id="quarterBenefit">$22.50</div><div class="sub">Sobre el excedente del saldo mínimo</div></div>
+        <div class="metric"><div class="label">Beneficio anual equivalente</div><div class="value" id="annualBenefit">$90.00</div><div class="sub">Estimación no acumulativa</div></div>
+        <div class="metric"><div class="label">Facturas estimadas</div><div class="value" id="invoiceCount">60</div><div class="sub">Según el promedio indicado</div></div>
+        <div class="metric"><div class="label">Penalidad ilustrativa por retiro total</div><div class="value" id="withdrawPenalty">$180.00</div><div class="sub">Aplicada al saldo proyectado</div></div>
+      </div>
+      <div class="breakdown">
+        <h3>Resumen de tu proyección</h3>
+        <div class="line-item"><span>Facturación elegible proyectada</span><strong id="totalVolume">$240,000</strong></div>
+        <div class="line-item"><span>Porcentaje de retención</span><strong id="retentionRate">5%</strong></div>
+        <div class="line-item"><span>Beneficio anual equivalente del nivel</span><strong id="annualRate">3%</strong></div>
+        <div class="line-item"><span>Saldo mínimo de referencia</span><strong>$3,000</strong></div>
+        <div class="line-item"><span>Método de pago</span><strong id="methodLabel">ACH</strong></div>
+        <div class="actions"><button class="btn btn-primary" id="downloadBtn" type="button">Guardar mi proyección</button><button class="btn btn-secondary" id="printBtn" type="button">Imprimir resumen</button></div>
+      </div>
+    </section>
+  </main>
+  <section class="compare">
+    <div class="section-head"><div><h2>Compara los niveles</h2><p>La misma operación, tres alternativas de retención.</p></div></div>
+    <div class="compare-grid" id="compareGrid"></div>
+  </section>
+  <div class="disclaimer"><span class="note-mark">i</span><div><strong>Importante:</strong> Esta herramienta presenta estimaciones ilustrativas y no constituye una oferta, garantía de beneficio ni confirmación de elegibilidad. El cálculo mostrado supone una liquidación trimestral equivalente a la tasa anual dividida entre cuatro y una base de beneficio sobre el saldo que exceda USD 3.000. La metodología definitiva, las condiciones de retiro y otras reglas del programa están sujetas a aprobación por NUKO Capital. El beneficio comercial se aplica a un Transaction Fee elegible; no se entrega en efectivo. Los resultados reales pueden variar.</div></div>
+  <footer><span>NUKO Cash+ · Herramienta ilustrativa</span><span>Todos los valores están expresados en dólares estadounidenses (USD).</span></footer>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(() => {
+  const levels = {
+    basic: {name:'Básico', retention:.05, annual:.03, penalty:.015},
+    intermediate: {name:'Intermedio', retention:.08, annual:.035, penalty:.01},
+    advanced: {name:'Avanzado', retention:.10, annual:.05, penalty:.01}
+  };
+  const $ = id => document.getElementById(id);
+  let selectedLevel = 'basic';
+  const money = value => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2,minimumFractionDigits:2}).format(Number.isFinite(value)?value:0);
+  const wholeMoney = value => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0,minimumFractionDigits:0}).format(Number.isFinite(value)?value:0);
+  const number = value => new Intl.NumberFormat('en-US',{maximumFractionDigits:1}).format(value);
+  const percent = value => `${(value*100).toLocaleString('es-CO',{maximumFractionDigits:2})}%`;
+  const getInputs = () => ({monthly:Math.max(0,Number($('monthlyVolume').value)||0), average:Math.max(1,Number($('avgInvoice').value)||1), months:Math.max(3,Number($('months').value)||3), method:$('paymentMethod').value});
+  function calc(levelKey, inputs){
+    const level=levels[levelKey];
+    const totalVolume=inputs.monthly*inputs.months;
+    const retained=totalVolume*level.retention;
+    const benefitBase=Math.max(0,retained-3000);
+    const quarterly=benefitBase*(level.annual/4);
+    const annual=benefitBase*level.annual;
+    const penalty=retained*level.penalty;
+    const invoices=totalVolume/inputs.average;
+    return {level,totalVolume,retained,benefitBase,quarterly,annual,penalty,invoices,progress:Math.min(100,retained/3000*100)};
+  }
+  function render(){
+    const input=getInputs(), r=calc(selectedLevel,input);
+    $('monthsValue').textContent=`${input.months} ${input.months===1?'mes':'meses'}`;
+    $('resultLevel').textContent=`Nivel ${r.level.name}`;
+    $('resultSubtitle').textContent=`Proyección ilustrativa a ${input.months} meses · Método ${input.method}.`;
+    $('retainedBalance').textContent=wholeMoney(r.retained);
+    $('retainedFoot').textContent=`Retención del ${percent(r.level.retention)} sobre ${wholeMoney(r.totalVolume)} de facturación elegible.`;
+    $('progressFill').style.width=`${r.progress}%`;
+    $('progressText').textContent=r.retained>=3000?'Has alcanzado la meta de referencia de USD 3.000':'Meta de referencia: $3,000';
+    $('progressPct').textContent=`${Math.round(r.progress)}% de la meta`;
+    $('quarterBenefit').textContent=money(r.quarterly);
+    $('annualBenefit').textContent=money(r.annual);
+    $('invoiceCount').textContent=number(r.invoices);
+    $('withdrawPenalty').textContent=money(r.penalty);
+    $('totalVolume').textContent=wholeMoney(r.totalVolume);
+    $('retentionRate').textContent=percent(r.level.retention);
+    $('annualRate').textContent=percent(r.level.annual);
+    $('methodLabel').textContent=input.method;
+    document.querySelectorAll('.level').forEach(btn=>btn.setAttribute('aria-pressed',String(btn.dataset.level===selectedLevel)));
+    renderComparison(input);
+  }
+  function renderComparison(input){
+    $('compareGrid').innerHTML=Object.entries(levels).map(([key,level])=>{
+      const r=calc(key,input),active=key===selectedLevel;
+      return `<article class="compare-card ${active?'active':''}"><div class="compare-top"><h3>${level.name}</h3>${active?'<span class="pill">Seleccionado</span>':''}</div><div class="compare-amount">${wholeMoney(r.retained)}</div><div class="compare-caption">Saldo retenido estimado</div><div class="compare-details"><div><span>Retención</span><strong>${percent(level.retention)}</strong></div><div><span>Beneficio trimestral</span><strong>${money(r.quarterly)}</strong></div><div><span>Beneficio anual equivalente</span><strong>${money(r.annual)}</strong></div><div><span>Penalidad ilustrativa</span><strong>${money(r.penalty)}</strong></div></div></article>`;
+    }).join('');
+  }
+  function summaryText(){
+    const input=getInputs(), r=calc(selectedLevel,input);
+    return [
+      'NUKO CASH+ — RESUMEN DE PROYECCIÓN',
+      'Estimación ilustrativa; sujeta a las condiciones y reglas definitivas del programa.',
+      '',`Nivel: ${r.level.name}`,`Método de pago: ${input.method}`,`Horizonte: ${input.months} meses`,
+      `Facturación elegible mensual: ${money(input.monthly)}`,`Facturación elegible proyectada: ${money(r.totalVolume)}`,
+      `Valor promedio por factura: ${money(input.average)}`,`Facturas estimadas: ${number(r.invoices)}`,
+      `Porcentaje de retención: ${percent(r.level.retention)}`,`Saldo retenido estimado: ${money(r.retained)}`,
+      `Beneficio trimestral estimado: ${money(r.quarterly)}`,`Beneficio anual equivalente: ${money(r.annual)}`,
+      `Penalidad ilustrativa por retiro total: ${money(r.penalty)}`,'',
+      'El beneficio comercial no se entrega en efectivo: se aplica a un Transaction Fee elegible. La metodología definitiva está sujeta a aprobación por NUKO Capital.'
+    ].join('\n');
+  }
+  function toast(message){const el=$('toast');el.textContent=message;el.classList.add('show');window.setTimeout(()=>el.classList.remove('show'),2600)}
+  document.querySelectorAll('.level').forEach(btn=>btn.addEventListener('click',()=>{selectedLevel=btn.dataset.level;render()}));
+  ['monthlyVolume','avgInvoice','months','paymentMethod'].forEach(id=>$(id).addEventListener('input',render));
+  $('downloadBtn').addEventListener('click',()=>{
+    const blob=new Blob(['\ufeff'+summaryText()],{type:'text/plain;charset=utf-8'});
+    const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='NUKO_Cash_Plus_Proyeccion.txt';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);toast('Tu resumen de proyección está listo.');
+  });
+  $('printBtn').addEventListener('click',()=>window.print());
+  render();
+})();
+</script>
+</body>
+</html>
